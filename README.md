@@ -175,7 +175,7 @@ ml-ops-agent-skills/
 | `.pre-commit-config.yaml` | Local lint hooks |
 | `.github/dependabot.yml` | Dependency updates |
 
-**Starter packs:** 7 · **Tutorials:** 10 · **Reference checklists:** 5 (with provenance)
+**Starter packs:** 7 · **Tutorials:** 10 · **Reference checklists:** 5 (with provenance and source citations) — [references/README.md](references/README.md)
 
 ## Documentation
 
@@ -186,6 +186,6 @@ ml-ops-agent-skills/
 
 ## License
 
-Apache-2.0 — see [LICENSE](LICENSE). Version **1.1.1** ([CHANGELOG](CHANGELOG.md)).
+Apache-2.0 — see [LICENSE](LICENSE). Version **1.1.2** ([CHANGELOG](CHANGELOG.md)).
 
 Inspired by [vaquarkhan/data-engineering-agent-skills](https://github.com/vaquarkhan/data-engineering-agent-skills).

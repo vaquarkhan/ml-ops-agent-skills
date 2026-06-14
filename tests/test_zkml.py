@@ -11,17 +11,20 @@ from unittest.mock import MagicMock, patch
 import numpy as np
 import pytest
 
-TORCH_AVAILABLE = importlib.util.find_spec("torch") is not None
-if TORCH_AVAILABLE:
-    try:
-        import torch
-    except OSError:
-        TORCH_AVAILABLE = False
+pytest.importorskip("torch")
+pytest.importorskip("onnx")
+if importlib.util.find_spec("ezkl") is not None:
+    pytest.importorskip("ezkl")
 
-if not TORCH_AVAILABLE:
-    pytest.skip("PyTorch unavailable in this environment", allow_module_level=True)
+import torch
 
+from tests._optional_deps import EZKL_AVAILABLE
 from zkml.generate_proof import ProofArtifacts, SimpleNN, ZKMLPipeline
+
+requires_ezkl = pytest.mark.skipif(
+    not EZKL_AVAILABLE,
+    reason="ezkl CLI not available (optional dependency)",
+)
 
 
 @pytest.fixture
@@ -49,6 +52,7 @@ class TestZKMLPipeline:
         sample = pipeline.generate_sample_input(seed=42)
         assert sample.shape == (1, 4)
 
+    @requires_ezkl
     def test_generate_proof_full_pipeline(self, pipeline: ZKMLPipeline) -> None:
         model = pipeline.create_model()
         artifacts = pipeline.generate_proof(model)
@@ -56,6 +60,7 @@ class TestZKMLPipeline:
         assert artifacts.onnx_path.exists()
         assert len(artifacts.public_inputs) == 4
 
+    @requires_ezkl
     def test_verify_proof_success(self, pipeline: ZKMLPipeline) -> None:
         model = pipeline.create_model()
         artifacts = pipeline.generate_proof(model)
@@ -79,7 +84,7 @@ class TestZKMLPipeline:
             onnx_path=tmp_path / "m.onnx",
             settings_path=tmp_path / "s.json",
             compiled_circuit_path=tmp_path / "c.compiled",
-            witness_path=tmp_path / "w.json",
+            witness_path=tmp_path / "w.witness",
             proof_path=proof_path,
             verification_key_path=tmp_path / "vk.key",
         )
@@ -92,7 +97,7 @@ class TestZKMLPipeline:
             onnx_path=tmp_path / "m.onnx",
             settings_path=tmp_path / "s.json",
             compiled_circuit_path=tmp_path / "c.compiled",
-            witness_path=tmp_path / "w.json",
+            witness_path=tmp_path / "w.witness",
             proof_path=proof_path,
             verification_key_path=tmp_path / "vk.key",
         )
@@ -110,6 +115,7 @@ class TestZKMLPipeline:
         data = json.loads(path.read_text())
         assert data["valid"] is True
 
+    @requires_ezkl
     @patch.object(ZKMLPipeline, "_run_ezkl")
     def test_verify_proof_ezkl_failure_falls_back(
         self, mock_ezkl: MagicMock, pipeline: ZKMLPipeline
@@ -153,6 +159,7 @@ class TestZKMLPipeline:
         out = model(torch.randn(2, 4))
         assert out.shape == (2, 2)
 
+    @requires_ezkl
     def test_run_ezkl_success(self, pipeline: ZKMLPipeline) -> None:
         with patch("zkml.generate_proof.subprocess.run") as mock_run:
             mock_run.return_value = subprocess.CompletedProcess(["ezkl"], 0, "", "")

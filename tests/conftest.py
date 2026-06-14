@@ -10,10 +10,12 @@ import pandas as pd
 import pytest
 
 from tests._optional_deps import (
+    EZKL_AVAILABLE,
     FAIRLEARN_AVAILABLE,
     FEAST_AVAILABLE,
     GREAT_EXPECTATIONS_AVAILABLE,
     MLFLOW_AVAILABLE,
+    ONNX_AVAILABLE,
     TORCH_AVAILABLE,
 )
 
@@ -34,7 +36,7 @@ def pytest_ignore_collect(collection_path: Path, config: pytest.Config) -> bool 
     name = collection_path.name
     if name == "test_training.py" and (not TORCH_AVAILABLE or not MLFLOW_AVAILABLE):
         return True
-    if name == "test_zkml.py" and not TORCH_AVAILABLE:
+    if name == "test_zkml.py" and (not TORCH_AVAILABLE or not ONNX_AVAILABLE):
         return True
     if name == "test_data_validation.py" and not GREAT_EXPECTATIONS_AVAILABLE:
         return True
@@ -50,6 +52,8 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
         nodeid = item.nodeid
         if not TORCH_AVAILABLE and ("test_training" in nodeid or "test_zkml" in nodeid):
             item.add_marker(pytest.mark.skip(reason="PyTorch not available (optional dependency)"))
+        if not ONNX_AVAILABLE and "test_zkml" in nodeid:
+            item.add_marker(pytest.mark.skip(reason="ONNX not available (optional dependency)"))
         if not GREAT_EXPECTATIONS_AVAILABLE and "test_data_validation" in nodeid:
             item.add_marker(
                 pytest.mark.skip(reason="Great Expectations not available (optional dependency)")
