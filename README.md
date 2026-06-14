@@ -1,4 +1,6 @@
-![MLOps Agent Skills](images/mlops-agent-skills-banner.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vaquarkhan/ml-ops-agent-skills/main/images/banner.jpg" alt="MLOps Agent Skills" width="900" />
+</p>
 
 # MLOps Agent Skills
 
