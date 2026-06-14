@@ -1,0 +1,17 @@
+---
+description: MLOps agent operating rules — classify work, load skills progressively, enforce validation gates.
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# MLOps Agent Skills Rules
+
+1. **Start with triage.** Load `skills/using-mlops-agent-skills/SKILL.md` before implementation.
+2. **Load presets.** Match stack to `presets/` (kubernetes-gpu-mlops, databricks-unity-catalog-mlops, etc.).
+3. **Progressive disclosure.** Load only task-specific skills — never the entire skills catalog at once.
+4. **Use lifecycle commands.** `/spec` → `/plan` → `/build` → `/validate` → `/review` → `/ship`.
+5. **Runnable code.** Platform implementation lives at repo root (`data/`, `training/`, `serving/`, etc.).
+6. **Gates are mandatory.** Drift (PSI > 0.2), fairness (DP diff > 0.05), and test coverage must pass before promotion.
+7. **No placeholders.** Every function must have complete implementation — no TODO/pass stubs.
+8. **Install surfaces.** See `docs/cursor-setup.md`, `vscode-extension/`, `jetbrains-plugin/`, `scripts/install.ps1`.

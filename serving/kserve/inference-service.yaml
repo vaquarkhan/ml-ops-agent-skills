@@ -1,0 +1,144 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: llm-vllm-serving
+  namespace: mlops
+  labels:
+    app.kubernetes.io/name: llm-vllm-serving
+    app.kubernetes.io/part-of: mlops-platform
+  annotations:
+    serving.kserve.io/deploymentMode: RawDeployment
+    autoscaling.knative.dev/target: "10"
+    autoscaling.knative.dev/min-scale: "2"
+    autoscaling.knative.dev/max-scale: "8"
+spec:
+  predictor:
+    minReplicas: 2
+    maxReplicas: 8
+    model:
+      modelFormat:
+        name: vllm
+      storageUri: "s3://mlops-models/llm/meta-llama/Llama-2-7b-hf"
+      resources:
+        requests:
+          cpu: "8"
+          memory: "32Gi"
+          nvidia.com/gpu: "1"
+        limits:
+          cpu: "16"
+          memory: "64Gi"
+          nvidia.com/gpu: "1"
+      env:
+        - name: VLLM_USE_V1
+          value: "1"
+        - name: VLLM_ATTENTION_BACKEND
+          value: "FLASH_ATTN"
+        - name: VLLM_GPU_MEMORY_UTILIZATION
+          value: "0.90"
+        - name: VLLM_MAX_MODEL_LEN
+          value: "4096"
+        - name: VLLM_TENSOR_PARALLEL_SIZE
+          value: "1"
+        - name: VLLM_ENABLE_PREFIX_CACHING
+          value: "true"
+        - name: LMCACHE_ENABLED
+          value: "true"
+        - name: LMCACHE_BACKEND
+          value: "redis"
+        - name: LMCACHE_REDIS_HOST
+          value: "lmcache-redis.mlops.svc.cluster.local"
+        - name: LMCACHE_REDIS_PORT
+          value: "6379"
+        - name: LMCACHE_CHUNK_SIZE
+          value: "256"
+        - name: LMCACHE_MAX_LOCAL_CACHE_SIZE
+          value: "4GB"
+        - name: LMCACHE_REMOTE_SERDE
+          value: "cachegen"
+      args:
+        - --model
+        - /mnt/models
+        - --dtype
+        - float16
+        - --max-model-len
+        - "4096"
+        - --gpu-memory-utilization
+        - "0.90"
+        - --enable-prefix-caching
+        - --kv-cache-dtype
+        - auto
+        - --disable-log-requests
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: 8080
+        initialDelaySeconds: 120
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 3
+      livenessProbe:
+        httpGet:
+          path: /health
+          port: 8080
+        initialDelaySeconds: 180
+        periodSeconds: 30
+        timeoutSeconds: 10
+        failureThreshold: 3
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lmcache-redis
+  namespace: mlops
+  labels:
+    app.kubernetes.io/name: lmcache-redis
+    app.kubernetes.io/part-of: mlops-platform
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+      protocol: TCP
+  selector:
+    app: lmcache-redis
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lmcache-redis
+  namespace: mlops
+  labels:
+    app: lmcache-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lmcache-redis
+  template:
+    metadata:
+      labels:
+        app: lmcache-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.2-alpine
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2Gi"
+            limits:
+              cpu: "2"
+              memory: "8Gi"
+          command:
+            - redis-server
+            - --maxmemory
+            - 6gb
+            - --maxmemory-policy
+            - allkeys-lru

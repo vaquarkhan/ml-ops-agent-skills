@@ -1,0 +1,15 @@
+name: aws-sagemaker-mlops
+description: AWS SageMaker-style MLOps with S3 data lake, Great Expectations validation, and MLflow tracking.
+platform:
+  cloud: aws
+  training: sagemaker
+  storage: s3
+  validation: great-expectations
+  orchestration: step-functions
+skills:
+  - data-validation-and-contract-testing
+  - mlflow-model-registry-and-continuous-training
+  - model-monitoring-and-drift-detection
+environment_variables:
+  MLFLOW_TRACKING_URI: "http://mlflow.internal:5000"
+  AWS_DEFAULT_REGION: "us-east-1"

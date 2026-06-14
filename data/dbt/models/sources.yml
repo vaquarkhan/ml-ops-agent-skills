@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw validated upstream events from the ingestion pipeline.
+    tables:
+      - name: events
+        description: Raw event stream post-GX validation.
+        columns:
+          - name: user_id
+            description: User entity identifier.
+          - name: event_timestamp
+            description: Event occurrence timestamp.
+          - name: feature_a
+            description: Numeric feature A.
+          - name: feature_b
+            description: Numeric feature B.
+          - name: feature_c
+            description: Normalized feature C.
+          - name: label
+            description: Binary classification label.

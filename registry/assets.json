@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "skills": [
+    {"name": "using-mlops-agent-skills", "path": "skills/using-mlops-agent-skills/SKILL.md"},
+    {"name": "data-validation-and-contract-testing", "path": "skills/data-validation-and-contract-testing/SKILL.md"},
+    {"name": "feast-feature-store-engineering", "path": "skills/feast-feature-store-engineering/SKILL.md"},
+    {"name": "distributed-gpu-training-and-scheduling", "path": "skills/distributed-gpu-training-and-scheduling/SKILL.md"},
+    {"name": "mlflow-model-registry-and-continuous-training", "path": "skills/mlflow-model-registry-and-continuous-training/SKILL.md"},
+    {"name": "llm-serving-and-inference-optimization", "path": "skills/llm-serving-and-inference-optimization/SKILL.md"},
+    {"name": "model-monitoring-and-drift-detection", "path": "skills/model-monitoring-and-drift-detection/SKILL.md"},
+    {"name": "verifiable-ai-and-zkml", "path": "skills/verifiable-ai-and-zkml/SKILL.md"},
+    {"name": "responsible-ai-and-model-governance", "path": "skills/responsible-ai-and-model-governance/SKILL.md"}
+  ],
+  "presets": [
+    "presets/kubernetes-gpu-mlops.yaml",
+    "presets/databricks-unity-catalog-mlops.yaml",
+    "presets/aws-sagemaker-mlops.yaml",
+    "presets/gcp-vertex-mlops.yaml"
+  ],
+  "starter_packs": [
+    "starter-packs/full-ml-lifecycle-starter.yaml"
+  ],
+  "examples": [
+    "examples/end-to-end-ml-lifecycle",
+    "examples/kserve-vllm-lmcache-blueprint"
+  ],
+  "platform_modules": [
+    "data", "feature_store", "training", "serving", "monitoring", "zkml", "governance", "k8s", "tests"
+  ]
+}

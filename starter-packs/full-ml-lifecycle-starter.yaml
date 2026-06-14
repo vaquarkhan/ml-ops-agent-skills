@@ -1,0 +1,19 @@
+name: full-ml-lifecycle-starter
+description: Opinionated bundle covering validation, features, training, serving, monitoring, and governance.
+skills:
+  - using-mlops-agent-skills
+  - data-validation-and-contract-testing
+  - feast-feature-store-engineering
+  - distributed-gpu-training-and-scheduling
+  - mlflow-model-registry-and-continuous-training
+  - llm-serving-and-inference-optimization
+  - model-monitoring-and-drift-detection
+  - responsible-ai-and-model-governance
+preset: kubernetes-gpu-mlops
+example: examples/end-to-end-ml-lifecycle
+templates:
+  - templates/model-contract.yaml
+  - templates/training-release-gate.yaml
+hooks:
+  - hooks/release-guard.sh
+  - hooks/retrain-guard.sh

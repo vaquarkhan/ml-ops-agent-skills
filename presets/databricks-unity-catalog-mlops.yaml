@@ -1,0 +1,18 @@
+name: databricks-unity-catalog-mlops
+description: Databricks Unity Catalog MLOps with MLflow registry, Feast features, and GPU training on Databricks clusters.
+platform:
+  registry: databricks-unity-catalog
+  tracking: mlflow
+  feature_store: feast
+  training: pytorch
+  serving: model-serving-endpoint
+skills:
+  - mlflow-model-registry-and-continuous-training
+  - feast-feature-store-engineering
+  - responsible-ai-and-model-governance
+  - model-monitoring-and-drift-detection
+environment_variables:
+  DATABRICKS_UC_REGISTRY_URI: "databricks-uc"
+  UC_MODEL_NAME: "main.mlops.user_classifier"
+  MLFLOW_TRACKING_URI: "databricks"
+  FEAST_REPO_PATH: "feature_store/feature_repo"

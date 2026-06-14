@@ -1,0 +1,20 @@
+{
+  "name": "mlops-agent-skills",
+  "displayName": "MLOps Agent Skills",
+  "description": "Install MLOps agent skills, presets, templates, and platform scaffolds into the current workspace.",
+  "version": "1.0.0",
+  "publisher": "mlops-platform",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onCommand:mlopsSkills.installFull"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "mlopsSkills.installFull", "title": "MLOps Skills: Install Full Toolkit" },
+      { "command": "mlopsSkills.installCore", "title": "MLOps Skills: Install Core Pack" },
+      { "command": "mlopsSkills.installAdapters", "title": "MLOps Skills: Install Agent Adapters" },
+      { "command": "mlopsSkills.installStarter", "title": "MLOps Skills: Install Starter Pack" },
+      { "command": "mlopsSkills.scaffoldExample", "title": "MLOps Skills: Scaffold Runnable Example" }
+    ]
+  }
+}

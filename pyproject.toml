@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlops-platform"
+version = "1.0.0"
+description = "Production-ready MLOps orchestration monorepo"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+addopts = [
+    "--strict-markers",
+    "--cov=data",
+    "--cov=feature_store",
+    "--cov=training",
+    "--cov=serving",
+    "--cov=monitoring",
+    "--cov=zkml",
+    "--cov=governance",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-fail-under=85",
+]
+markers = [
+    "integration: marks tests requiring external services",
+    "slow: marks tests that take longer to run",
+    "gpu: marks tests requiring GPU hardware",
+]
+
+[tool.coverage.run]
+source = ["data", "feature_store", "training", "serving", "monitoring", "zkml", "governance"]
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+    "training/train.py",
+    "zkml/generate_proof.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "D", "UP", "ANN", "S", "B", "A", "C4", "SIM"]
+ignore = ["D100", "D104"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

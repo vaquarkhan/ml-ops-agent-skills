@@ -1,0 +1,15 @@
+name: gcp-vertex-mlops
+description: GCP Vertex AI MLOps with BigQuery features, Feast, and Cloud Run serving.
+platform:
+  cloud: gcp
+  training: vertex-ai
+  warehouse: bigquery
+  feature_store: feast
+  serving: cloud-run
+skills:
+  - feast-feature-store-engineering
+  - mlflow-model-registry-and-continuous-training
+  - llm-serving-and-inference-optimization
+environment_variables:
+  MLFLOW_TRACKING_URI: "http://mlflow.internal:5000"
+  GOOGLE_CLOUD_PROJECT: "mlops-platform"

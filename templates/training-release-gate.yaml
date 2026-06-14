@@ -1,0 +1,23 @@
+release:
+  model_name: user_classifier
+  version: "1.0.0"
+  stage: staging
+
+gates:
+  - name: unit_tests
+    command: pytest tests/ -q
+    required: true
+  - name: k8s_manifest_validation
+    command: python training/validate_k8s.py
+    required: true
+  - name: drift_check
+    command: pytest tests/test_monitoring.py -q
+    required: true
+  - name: fairness_gate
+    command: pytest tests/test_governance.py::TestGovernancePipeline::test_fairness_gate_fails_on_bias -q
+    required: true
+
+evidence:
+  mlflow_run_id: ""
+  model_uri: ""
+  reviewer: ""

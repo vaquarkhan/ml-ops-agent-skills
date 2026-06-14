@@ -1,0 +1,8 @@
+mlops_platform:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: target/mlops_dev.duckdb
+      schema: main
+      threads: 4
