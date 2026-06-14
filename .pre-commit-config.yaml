@@ -1,0 +1,29 @@
+repos:
+  - repo: local
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        entry: python -c "import pathlib,sys; [p.write_text('\\n'.join(l.rstrip() for l in p.read_text(encoding='utf-8').splitlines())+'\\n') for p in map(pathlib.Path, sys.argv[1:]) if p.is_file()]"
+        language: system
+        types: [text]
+
+      - id: validate-skills
+        name: Validate agent skills
+        entry: python scripts/validate-skills.py
+        language: system
+        pass_filenames: false
+        files: ^skills/.*SKILL\.md$
+
+      - id: validate-assets
+        name: Validate asset registry
+        entry: python scripts/validate-assets.py
+        language: system
+        pass_filenames: false
+        files: ^registry/assets\.json$
+
+      - id: pytest-light
+        name: Run lightweight pytest
+        entry: python -m pytest tests/ -q --ignore=tests/test_training.py --ignore=tests/test_zkml.py
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

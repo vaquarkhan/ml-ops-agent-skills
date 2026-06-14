@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "skills": [
     {"name": "using-mlops-agent-skills", "path": "skills/using-mlops-agent-skills/SKILL.md"},
     {"name": "data-validation-and-contract-testing", "path": "skills/data-validation-and-contract-testing/SKILL.md"},
@@ -18,11 +18,29 @@
     "presets/gcp-vertex-mlops.yaml"
   ],
   "starter_packs": [
-    "starter-packs/full-ml-lifecycle-starter.yaml"
+    "starter-packs/full-ml-lifecycle-starter.yaml",
+    "starter-packs/drift-monitoring-starter.yaml",
+    "starter-packs/llm-serving-starter.yaml",
+    "starter-packs/responsible-ai-starter.yaml",
+    "starter-packs/zkml-verifiable-ai-starter.yaml",
+    "starter-packs/gpu-training-starter.yaml",
+    "starter-packs/feature-store-starter.yaml"
   ],
   "examples": [
     "examples/end-to-end-ml-lifecycle",
     "examples/kserve-vllm-lmcache-blueprint"
+  ],
+  "tutorials": [
+    "tutorials/installing-vscode-and-jetbrains-plugins.md",
+    "tutorials/using-mlops-agent-skills.md",
+    "tutorials/data-validation-gx-dbt-contracts.md",
+    "tutorials/feast-point-in-time-training-joins.md",
+    "tutorials/gpu-volcano-gang-scheduling.md",
+    "tutorials/mlflow-unity-catalog-registration.md",
+    "tutorials/kserve-vllm-serving-rollout.md",
+    "tutorials/drift-detection-production-gates.md",
+    "tutorials/zkml-proof-generation-walkthrough.md",
+    "tutorials/fairness-gates-and-model-cards.md"
   ],
   "platform_modules": [
     "data", "feature_store", "training", "serving", "monitoring", "zkml", "governance", "k8s", "tests"

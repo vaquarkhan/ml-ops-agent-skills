@@ -1,0 +1,79 @@
+{
+  "coverage_pct": 91.66666666666666,
+  "hits": 11,
+  "total": 12,
+  "results": [
+    {
+      "task": "schema drift in raw ingestion",
+      "expected": "data-validation-and-contract-testing",
+      "routed": "data-validation-and-contract-testing",
+      "hit": true
+    },
+    {
+      "task": "point-in-time feature join for training",
+      "expected": "feast-feature-store-engineering",
+      "routed": "data-validation-and-contract-testing",
+      "hit": false
+    },
+    {
+      "task": "volcano gang scheduling for GPU job",
+      "expected": "distributed-gpu-training-and-scheduling",
+      "routed": "distributed-gpu-training-and-scheduling",
+      "hit": true
+    },
+    {
+      "task": "register model to unity catalog",
+      "expected": "mlflow-model-registry-and-continuous-training",
+      "routed": "mlflow-model-registry-and-continuous-training",
+      "hit": true
+    },
+    {
+      "task": "kserve vllm inference latency",
+      "expected": "llm-serving-and-inference-optimization",
+      "routed": "llm-serving-and-inference-optimization",
+      "hit": true
+    },
+    {
+      "task": "production drift PSI alert",
+      "expected": "model-monitoring-and-drift-detection",
+      "routed": "model-monitoring-and-drift-detection",
+      "hit": true
+    },
+    {
+      "task": "zero knowledge proof for model inference",
+      "expected": "verifiable-ai-and-zkml",
+      "routed": "verifiable-ai-and-zkml",
+      "hit": true
+    },
+    {
+      "task": "demographic parity fairness gate",
+      "expected": "responsible-ai-and-model-governance",
+      "routed": "responsible-ai-and-model-governance",
+      "hit": true
+    },
+    {
+      "task": "new mlops session triage",
+      "expected": "using-mlops-agent-skills",
+      "routed": "using-mlops-agent-skills",
+      "hit": true
+    },
+    {
+      "task": "dbt contract for validated events",
+      "expected": "data-validation-and-contract-testing",
+      "routed": "data-validation-and-contract-testing",
+      "hit": true
+    },
+    {
+      "task": "lmcache redis kv cache config",
+      "expected": "llm-serving-and-inference-optimization",
+      "routed": "llm-serving-and-inference-optimization",
+      "hit": true
+    },
+    {
+      "task": "ezkl onnx circuit compile",
+      "expected": "verifiable-ai-and-zkml",
+      "routed": "verifiable-ai-and-zkml",
+      "hit": true
+    }
+  ]
+}

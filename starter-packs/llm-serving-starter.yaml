@@ -1,0 +1,9 @@
+name: llm-serving-starter
+description: KServe + vLLM + LMCache high-performance LLM serving rollout.
+skills:
+  - llm-serving-and-inference-optimization
+  - model-monitoring-and-drift-detection
+preset: kubernetes-gpu-mlops
+example: examples/kserve-vllm-lmcache-blueprint
+references:
+  - references/llm-serving-latency-checklist.md

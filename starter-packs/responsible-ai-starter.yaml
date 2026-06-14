@@ -1,0 +1,10 @@
+name: responsible-ai-starter
+description: Fairlearn fairness gates and Model Card automation before promotion.
+skills:
+  - responsible-ai-and-model-governance
+  - model-monitoring-and-drift-detection
+preset: databricks-unity-catalog-mlops
+templates:
+  - templates/model-contract.yaml
+references:
+  - references/fairness-gate-checklist.md

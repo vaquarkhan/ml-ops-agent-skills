@@ -26,8 +26,12 @@ scripts/install.sh --tool all --target /path/to/project
 # Windows
 pwsh scripts/install.ps1 --tool all --target C:\path\to\project
 
-# Run platform tests
+# Run platform tests (lightweight local dev — no torch/feast/GX)
 python -m venv .venv && source .venv/bin/activate
+pip install -r requirements-minimal.txt
+pytest tests/ -v
+
+# Full platform suite (Linux CI or after installing optional deps)
 pip install -r requirements.txt
 pytest tests/ -v
 ```
@@ -149,9 +153,29 @@ ml-ops-agent-skills/
 ## Multi-Agent Packaging
 
 - `.cursor/rules/` — Cursor project rules
+- `.claude/commands/` — Claude Code lifecycle commands
+- `.gemini/commands/` — Gemini CLI lifecycle commands
+- `.kiro/steering/` — Kiro steering docs
 - `.github/copilot-instructions.md` — GitHub Copilot
 - `AGENTS.md` — Generic agent entry
 - `CLAUDE.md` — Claude entry
+
+## Governance and Quality
+
+| Asset | Purpose |
+|-------|---------|
+| [LICENSE](LICENSE) | Apache-2.0 |
+| [CHANGELOG](CHANGELOG.md) | Release history |
+| [VERSION](VERSION) | Current semver |
+| [SECURITY.md](SECURITY.md) | Vulnerability reporting |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guide |
+| `scripts/validate-skills.py` | Skill structure CI gate |
+| `scripts/validate-assets.py` | Registry path verification |
+| `evals/run.py` | Skill routing benchmark (≥70%) |
+| `.pre-commit-config.yaml` | Local lint hooks |
+| `.github/dependabot.yml` | Dependency updates |
+
+**Starter packs:** 7 · **Tutorials:** 10 · **Reference checklists:** 5 (with provenance)
 
 ## Documentation
 
@@ -162,6 +186,6 @@ ml-ops-agent-skills/
 
 ## License
 
-Apache-2.0
+Apache-2.0 — see [LICENSE](LICENSE). Version **1.1.0** ([CHANGELOG](CHANGELOG.md)).
 
 Inspired by [vaquarkhan/data-engineering-agent-skills](https://github.com/vaquarkhan/data-engineering-agent-skills).

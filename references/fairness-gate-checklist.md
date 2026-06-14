@@ -1,5 +1,7 @@
 # Fairness Gate Checklist
 
+> **Provenance:** Fairlearn documentation; Microsoft Responsible AI Standard; NIST AI RMF fairness considerations.
+
 - [ ] Sensitive feature identified and documented
 - [ ] Demographic parity difference computed via Fairlearn
 - [ ] Equalized odds difference logged

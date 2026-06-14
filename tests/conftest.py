@@ -1,4 +1,4 @@
-"""Shared pytest fixtures for the MLOps platform test suite."""
+"""Shared pytest fixtures and optional dependency skip guards."""
 
 from __future__ import annotations
 
@@ -9,7 +9,47 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from tests._optional_deps import (
+    FEAST_AVAILABLE,
+    GREAT_EXPECTATIONS_AVAILABLE,
+    TORCH_AVAILABLE,
+)
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    config.addinivalue_line("markers", "requires_torch: needs PyTorch installed")
+    config.addinivalue_line("markers", "requires_gx: needs Great Expectations installed")
+    config.addinivalue_line("markers", "requires_feast: needs Feast installed")
+    config.addinivalue_line("markers", "requires_ezkl: needs ezkl CLI installed")
+
+
+def pytest_ignore_collect(collection_path: Path, config: pytest.Config) -> bool | None:
+    """Skip entire test modules when optional dependencies are missing."""
+    name = collection_path.name
+    if name == "test_training.py" and not TORCH_AVAILABLE:
+        return True
+    if name == "test_zkml.py" and not TORCH_AVAILABLE:
+        return True
+    if name == "test_data_validation.py" and not GREAT_EXPECTATIONS_AVAILABLE:
+        return True
+    if name == "test_feature_store.py" and not FEAST_AVAILABLE:
+        return True
+    return None
+
+
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+    for item in items:
+        nodeid = item.nodeid
+        if not TORCH_AVAILABLE and ("test_training" in nodeid or "test_zkml" in nodeid):
+            item.add_marker(pytest.mark.skip(reason="PyTorch not available (optional dependency)"))
+        if not GREAT_EXPECTATIONS_AVAILABLE and "test_data_validation" in nodeid:
+            item.add_marker(
+                pytest.mark.skip(reason="Great Expectations not available (optional dependency)")
+            )
+        if not FEAST_AVAILABLE and "test_feature_store" in nodeid:
+            item.add_marker(pytest.mark.skip(reason="Feast not available (optional dependency)"))
 
 
 @pytest.fixture

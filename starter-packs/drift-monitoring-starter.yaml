@@ -1,0 +1,12 @@
+name: drift-monitoring-starter
+description: Starter pack for production drift detection with Evidently PSI gates.
+skills:
+  - model-monitoring-and-drift-detection
+  - using-mlops-agent-skills
+preset: kubernetes-gpu-mlops
+templates:
+  - templates/training-release-gate.yaml
+references:
+  - references/drift-detection-checklist.md
+hooks:
+  - hooks/release-guard.sh

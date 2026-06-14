@@ -1,0 +1,8 @@
+name: feature-store-starter
+description: Feast offline/online feature store with point-in-time training joins.
+skills:
+  - feast-feature-store-engineering
+  - data-validation-and-contract-testing
+preset: databricks-unity-catalog-mlops
+references:
+  - references/feast-pit-join-checklist.md

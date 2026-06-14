@@ -1,5 +1,7 @@
 # LLM Serving Latency Checklist
 
+> **Provenance:** vLLM documentation (PagedAttention); KServe InferenceService spec; LMCache project documentation.
+
 - [ ] vLLM PagedAttention backend configured
 - [ ] GPU memory utilization set (default 0.90)
 - [ ] Prefix caching enabled where applicable

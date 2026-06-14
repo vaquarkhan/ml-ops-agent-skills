@@ -1,5 +1,7 @@
 # Drift Detection Checklist
 
+> **Provenance:** Evidently AI drift detection guides; PSI threshold literature (credit scoring); Wasserstein distance monitoring patterns.
+
 - [ ] Reference dataset frozen from training window
 - [ ] Production sample collected from inference logs
 - [ ] PSI threshold configured (default 0.2)

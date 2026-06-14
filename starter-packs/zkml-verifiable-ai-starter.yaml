@@ -1,0 +1,8 @@
+name: zkml-verifiable-ai-starter
+description: Zero-knowledge proof pipeline for verifiable model inference.
+skills:
+  - verifiable-ai-and-zkml
+  - responsible-ai-and-model-governance
+preset: kubernetes-gpu-mlops
+platform_modules:
+  - zkml
