@@ -5,6 +5,13 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-06-14
+
+### Fixed
+
+- Skip guards for `test_governance.py` (fairlearn) and `test_training.py` (mlflow) via `pytest.importorskip` and conftest collection hooks
+- Skill routing benchmark now scores 12/12 (100%) with frontmatter-aware tokenization and domain triggers
+
 ## [1.1.0] - 2026-06-14
 
 ### Added

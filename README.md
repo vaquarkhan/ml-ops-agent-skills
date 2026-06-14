@@ -186,6 +186,6 @@ ml-ops-agent-skills/
 
 ## License
 
-Apache-2.0 — see [LICENSE](LICENSE). Version **1.1.0** ([CHANGELOG](CHANGELOG.md)).
+Apache-2.0 — see [LICENSE](LICENSE). Version **1.1.1** ([CHANGELOG](CHANGELOG.md)).
 
 Inspired by [vaquarkhan/data-engineering-agent-skills](https://github.com/vaquarkhan/data-engineering-agent-skills).

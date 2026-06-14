@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "skills": [
     {"name": "using-mlops-agent-skills", "path": "skills/using-mlops-agent-skills/SKILL.md"},
     {"name": "data-validation-and-contract-testing", "path": "skills/data-validation-and-contract-testing/SKILL.md"},

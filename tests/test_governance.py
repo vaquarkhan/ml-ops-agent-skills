@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
+pytest.importorskip("fairlearn")
+
 from governance.fairness import (
     FairnessGateError,
     FairnessMetrics,

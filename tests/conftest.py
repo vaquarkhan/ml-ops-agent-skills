@@ -10,8 +10,10 @@ import pandas as pd
 import pytest
 
 from tests._optional_deps import (
+    FAIRLEARN_AVAILABLE,
     FEAST_AVAILABLE,
     GREAT_EXPECTATIONS_AVAILABLE,
+    MLFLOW_AVAILABLE,
     TORCH_AVAILABLE,
 )
 
@@ -23,18 +25,22 @@ def pytest_configure(config: pytest.Config) -> None:
     config.addinivalue_line("markers", "requires_gx: needs Great Expectations installed")
     config.addinivalue_line("markers", "requires_feast: needs Feast installed")
     config.addinivalue_line("markers", "requires_ezkl: needs ezkl CLI installed")
+    config.addinivalue_line("markers", "requires_fairlearn: needs Fairlearn installed")
+    config.addinivalue_line("markers", "requires_mlflow: needs MLflow installed")
 
 
 def pytest_ignore_collect(collection_path: Path, config: pytest.Config) -> bool | None:
     """Skip entire test modules when optional dependencies are missing."""
     name = collection_path.name
-    if name == "test_training.py" and not TORCH_AVAILABLE:
+    if name == "test_training.py" and (not TORCH_AVAILABLE or not MLFLOW_AVAILABLE):
         return True
     if name == "test_zkml.py" and not TORCH_AVAILABLE:
         return True
     if name == "test_data_validation.py" and not GREAT_EXPECTATIONS_AVAILABLE:
         return True
     if name == "test_feature_store.py" and not FEAST_AVAILABLE:
+        return True
+    if name == "test_governance.py" and not FAIRLEARN_AVAILABLE:
         return True
     return None
 
@@ -50,6 +56,10 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
             )
         if not FEAST_AVAILABLE and "test_feature_store" in nodeid:
             item.add_marker(pytest.mark.skip(reason="Feast not available (optional dependency)"))
+        if not FAIRLEARN_AVAILABLE and "test_governance" in nodeid:
+            item.add_marker(pytest.mark.skip(reason="Fairlearn not available (optional dependency)"))
+        if not MLFLOW_AVAILABLE and "test_training" in nodeid:
+            item.add_marker(pytest.mark.skip(reason="MLflow not available (optional dependency)"))
 
 
 @pytest.fixture

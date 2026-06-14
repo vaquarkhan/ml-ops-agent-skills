@@ -20,6 +20,7 @@ FEAST_AVAILABLE = _can_import("feast")
 GREAT_EXPECTATIONS_AVAILABLE = _can_import("great_expectations")
 EVIDENTLY_AVAILABLE = _can_import("evidently")
 MLFLOW_AVAILABLE = _can_import("mlflow")
+FAIRLEARN_AVAILABLE = _can_import("fairlearn")
 ONNX_AVAILABLE = _can_import("onnx")
 
 # EZKL is CLI-based; treat as optional unless CLI present

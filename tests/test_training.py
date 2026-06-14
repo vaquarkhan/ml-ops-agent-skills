@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import importlib.util
 import sys
 from unittest.mock import MagicMock, patch
 
@@ -10,15 +9,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-TORCH_AVAILABLE = importlib.util.find_spec("torch") is not None
-if TORCH_AVAILABLE:
-    try:
-        import torch
-    except OSError:
-        TORCH_AVAILABLE = False
+pytest.importorskip("torch")
+pytest.importorskip("mlflow")
 
-if not TORCH_AVAILABLE:
-    pytest.skip("PyTorch unavailable in this environment", allow_module_level=True)
+import torch
 
 from training.train import TrainingConfig, TrainingPipeline, UserClassifier
 

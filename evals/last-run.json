@@ -1,6 +1,6 @@
 {
-  "coverage_pct": 91.66666666666666,
-  "hits": 11,
+  "coverage_pct": 100.0,
+  "hits": 12,
   "total": 12,
   "results": [
     {
@@ -12,8 +12,8 @@
     {
       "task": "point-in-time feature join for training",
       "expected": "feast-feature-store-engineering",
-      "routed": "data-validation-and-contract-testing",
-      "hit": false
+      "routed": "feast-feature-store-engineering",
+      "hit": true
     },
     {
       "task": "volcano gang scheduling for GPU job",
